@@ -82,6 +82,10 @@ TEMPLATE_DIRS = (
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django_classification_banner.context_processors.classification',
     'exchange.core.context_processors.resource_variables',
+    'exchange.core.context_processors.version',
+    'exchange.core.context_processors.registry',
+    'exchange.core.context_processors.map_crs',
+    'exchange.core.context_processors.template_globals',
 )
 
 # middlware
@@ -100,7 +104,9 @@ INSTALLED_APPS = (
     'solo',
     'colorfield',
     'haystack',
-    'corsheaders'
+    'corsheaders',
+    'osgeo_importer',
+    'kombu.transport.django'
 ) + INSTALLED_APPS
 
 # cors settings
@@ -156,6 +162,7 @@ DATABASE_URL = os.getenv('DATABASE_URL', SQLITEDB)
 DATABASES['default'] = dj_database_url.parse(DATABASE_URL,
                                              conn_max_age=600)
 POSTGIS_URL = os.environ.get('POSTGIS_URL', None)
+OSGEO_DATASTORE_URL = os.environ.get('OSGEO_DATASTORE_URL', None)
 if POSTGIS_URL is not None:
     DATABASES['exchange_imports'] = dj_database_url.parse(POSTGIS_URL,
                                                           conn_max_age=600)
@@ -168,6 +175,10 @@ if POSTGIS_URL is not None:
             'GEOGIT_ENABLED': True,
         }
     }
+
+if OSGEO_DATASTORE_URL is not None:
+    DATABASES['datastore'] = dj_database_url.parse(OSGEO_DATASTORE_URL,
+                                                 conn_max_age=600)
 
 WGS84_MAP_CRS = os.environ.get('WGS84_MAP_CRS', None)
 if WGS84_MAP_CRS is not None:
@@ -362,6 +373,12 @@ if REGISTRY is not None:
     # Read cache information from CACHE_URL
     # Registry needs the CACHE to store the layers to be indexed.
     CACHES = {'default': django_cache_url.config()}
+
+# osgeo_importer-specific settings
+if 'osgeo_importer' in INSTALLED_APPS:
+    OSGEO_IMPORTER_GEONODE_ENABLED = True
+    CELERY_IMPORTS += ('osgeo_importer.tasks',)
+    CELERY_IGNORE_RESULT = False
 
 try:
     from local_settings import *  # noqa
