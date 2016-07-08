@@ -180,6 +180,14 @@ if POSTGIS_URL is not None:
         # specify which postgis db osgeo_importer name should reference
         OSGEO_DATASTORE = 'exchange_imports'
 
+OSGEO_DATASTORE_URL = os.environ.get('OSGEO_DATASTORE_URL', None)
+if OSGEO_DATASTORE_URL is not None:
+    DATABASES['osgeo_imports'] = dj_database_url.parse(OSGEO_DATASTORE_URL,
+                                                       conn_max_age=600)
+    OSGEO_DATASTORE = 'osgeo_imports'
+else:
+    OSGEO_DATASTORE = 'exchange_imports'
+
 if OSGEO_DATASTORE_URL is not None:
     DATABASES['datastore'] = dj_database_url.parse(OSGEO_DATASTORE_URL,
                                                  conn_max_age=600)
