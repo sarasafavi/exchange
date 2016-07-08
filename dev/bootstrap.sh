@@ -162,11 +162,6 @@ database_setup()
     psql -U postgres -d exchange_data -c 'CREATE EXTENSION postgis;'
     psql -U postgres -d exchange_data -c 'GRANT ALL ON geometry_columns TO PUBLIC;'
     psql -U postgres -d exchange_data -c 'GRANT ALL ON spatial_ref_sys TO PUBLIC;'
-
-    psql -U postgres -c "CREATE DATABASE osgeo_importer_test OWNER osgeo;"
-    psql -U postgres -d osgeo_importer_test -c "CREATE EXTENSION postgis"
-    psql -U postgres -d osgeo_importer_test -c 'GRANT ALL ON geometry_columns TO PUBLIC;'
-    psql -U postgres -d osgeo_importer_test -c 'GRANT ALL ON spatial_ref_sys TO PUBLIC;'
 }
 
 gs-dev_init()

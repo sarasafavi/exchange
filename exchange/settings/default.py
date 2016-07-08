@@ -176,10 +176,13 @@ if POSTGIS_URL is not None:
         }
     }
 
+    if 'osgeo_importer' in INSTALLED_APPS:
+        # specify which postgis db osgeo_importer name should reference
+        OSGEO_DATASTORE = 'exchange_imports'
+
 if OSGEO_DATASTORE_URL is not None:
     DATABASES['datastore'] = dj_database_url.parse(OSGEO_DATASTORE_URL,
                                                  conn_max_age=600)
-
 WGS84_MAP_CRS = os.environ.get('WGS84_MAP_CRS', None)
 if WGS84_MAP_CRS is not None:
     DEFAULT_MAP_CRS = "EPSG:4326"
