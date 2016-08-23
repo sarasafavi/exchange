@@ -22,6 +22,7 @@ from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 from maploom.geonode.urls import urlpatterns as maploom_urls
 from hypermap.urls import urlpatterns as hypermap_urls
+from osgeo_importer.urls import urlpatterns as osgeo_importer_urls
 from geonode.urls import urlpatterns as geonode_urls
 from . import views
 
@@ -43,3 +44,4 @@ urlpatterns = patterns(
 urlpatterns += geonode_urls
 urlpatterns += maploom_urls
 urlpatterns += hypermap_urls
+urlpatterns += osgeo_importer_urls
