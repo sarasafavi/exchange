@@ -31,3 +31,5 @@ pylibmc==1.5.1
 mapproxy==1.9.0
 djmp==0.2.8
 django-registry==0.3.6
+git+git://github.com/ProminentEdge/django-osgeo-importer@master#egg=django-osgeo-importer
+numpy==1.11.0
