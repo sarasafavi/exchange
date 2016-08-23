@@ -81,10 +81,6 @@ TEMPLATE_DIRS = (
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django_classification_banner.context_processors.classification',
-    'exchange.core.context_processors.resource_variables',
-    'exchange.core.context_processors.version',
-    'exchange.core.context_processors.registry',
-    'exchange.core.context_processors.map_crs',
     'exchange.core.context_processors.template_globals',
 )
 

@@ -190,7 +190,7 @@
           </div>
           <div class="modal-body">
             <ul class="list-unstyled">
-              {% if USE_OSGEO_IMPORTER %}
+              {% if 'osgeo_importer' in INSTALLED_APPS %}
                   <li><a href="{% url "uploads-list" %}"><i class="fa fa-th-list"></i> {% trans "Staged Layers" %}</a></li>
               {% endif %}
               <li class="modal-divider"></li>

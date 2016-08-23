@@ -22,8 +22,10 @@ from django.conf import settings
 from exchange.version import get_version
 
 
-def resource_variables(request):
-    """Global exchange values to pass to templates"""
+def template_globals(request):
+    """Global values to pass to templates
+    """
+
     defaults = dict(
         VERSION=get_version(),
         REGISTRY=getattr(settings, 'REGISTRY', False),
@@ -32,33 +34,6 @@ def resource_variables(request):
         MAP_CRS=settings.DEFAULT_MAP_CRS,
         BOUNDLESS_URL=settings.BOUNDLESS_URL,
         BOUNDLESS_LINKTEXT=settings.BOUNDLESS_LINKTEXT,
-    )
-
-    return defaults
-
-
-def version(request):
-    """ Returns the exchange version """
-
-    return dict(VERSION=get_version())
-
-
-def registry(request):
-    """ Registry variable to pass to templates"""
-
-    return {'REGISTRY': settings.REGISTRY}
-
-
-def map_crs(request):
-    """ Map CRS variable to pass to templates"""
-
-    return {'MAP_CRS': settings.DEFAULT_MAP_CRS}
-
-
-def template_globals(request):
-    """Global values to pass to templates"""
-
-    defaults = dict(
-        USE_OSGEO_IMPORTER=('osgeo_importer' in settings.INSTALLED_APPS)
+        INSTALLED_APPS=set(settings.INSTALLED_APPS),
     )
     return defaults
