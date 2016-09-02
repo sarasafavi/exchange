@@ -102,7 +102,6 @@ INSTALLED_APPS = (
     'haystack',
     'corsheaders',
     'osgeo_importer',
-    'kombu.transport.django'
 ) + INSTALLED_APPS
 
 # cors settings
